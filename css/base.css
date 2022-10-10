@@ -1,0 +1,162 @@
+html, body{
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+    font-family: 'Noto Sans JP';
+    font-weight: 400;
+}
+
+.maincolor{
+    background-color: #00717F;
+}
+.highlight{
+    background-color: rgba(0, 113, 127, 0.2);
+}
+
+.weight300{
+    font-weight: 300;
+}
+
+.weight400{
+    font-weight: 400;
+}
+
+
+#title_contain{
+    width: 100vw;
+    height: 10vw;
+    text-align: center;
+    color: #FFF;
+    position: absolute;
+    top: 0vw;
+}
+
+.title_content{
+    height: 100%;
+    border-right: 2px solid #FFF;
+    float: left;
+}
+
+
+#time_contain{
+    width: calc(100vw - 10px);
+    height: calc(100vh - 10vw - 10px);
+    padding: 5px;
+    position: absolute;
+    top: 10vw;
+    font-size: 3.0vw;
+    font-weight: 300;
+    overflow-y: scroll;
+    text-align: center;
+}
+
+#time_scroll{
+    border: 2px solid #000;
+}
+
+#time_title{
+    font-size: 2.5vw;
+    line-height: 4.6vw;
+    height: 4.8vw;
+    border-bottom: 1px solid #AAA;
+}
+
+.time_list{
+    font-size: 3.5vw;
+    line-height: 7.2vw;
+    height: 7.2vw;
+    font-weight: 400;
+    border-bottom: 1px solid #AAA;
+}
+
+.time_content{
+    float: left;
+    border-left: 1px solid #AAA;
+    height: 100%;
+}
+
+#time_scroll .r0{
+    width: 15%;
+    border-left: 0;
+}
+#time_scroll .r1{
+    width: 30%;
+}
+#time_scroll .r2{
+    width: calc(15% - 4px);
+}
+#time_scroll .r3{
+    width: 20%;
+}
+#time_scroll .r4{
+    width: 20%;
+}
+
+#time_scroll .sec{
+    font-weight: 400;
+    font-size: 2.5vw;
+}
+
+#time_scroll .w0{
+    width: calc(20% - 4px);
+    border-left: 0;
+}
+#time_scroll .w1{
+    width: 17%;
+}
+#time_scroll .w2{
+    width: 23%;
+}
+#time_scroll .w3{
+    width: 17%;
+}
+#time_scroll .w4{
+    width: 23%;
+}
+
+
+
+.time_list > .r0{
+    font-family: 'Roboto Mono';
+    font-weight: 500;
+    position: relative;
+    top: -4vw;
+    background-color: #FFF;
+    border-bottom: 1px solid #AAA;
+}
+.time_list > .r3{
+    font-family: 'Roboto Mono';
+    font-weight: 500;
+}
+.time_list > .r4{
+    font-family: 'Roboto Mono';
+    font-weight: 500;
+}
+
+.time_list > .w1{
+    font-family: 'Roboto Mono';
+    font-weight: 500;
+}
+.time_list > .w3{
+    font-family: 'Roboto Mono';
+    font-weight: 500;
+}
+
+#menu{
+    width: auto;
+    height: 10vw;
+    position: absolute;
+    top: calc(10vw + 2px);
+    font-size: 3.0vw;
+    color: #FFF;
+    display: none;
+}
+
+#menu .title_content{
+    width: 10vw;
+    text-align: center;
+    font-size: 2.5vw;
+    float: none;
+    border-bottom: 2px solid #FFF;
+}

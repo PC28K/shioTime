@@ -1,0 +1,33 @@
+<div id="title_contain" class="maincolor weight300">
+	<div class="title_content weight400" style="width: 10vw; font-size: 3.5vw; line-height: 10vw;" onclick="menu()">
+		≡
+	</div>
+	<div class="title_content" style="min-width: 30vw; font-size: 2.5vw; line-height: 10vw;">
+		<span id="trainNo" class="weight400" style="font-size: 6.0vw; "></span>列車
+	</div>
+	<div class="title_content" style="width: 50vw; font-size: 2.5vw; line-height: 4vw; padding-top: 0.6vw; border: 0;">
+		<span id="workNo" class="weight400"></span> - <span id="workInNo" class="weight400"></span><br>
+		<span id="trainType"></span>　<span id="trainDest" class="weight400" style="font-size: 3.5vw;"></span>　行
+	</div>
+</div>
+
+<div id="time_contain">
+	<div id="time_scroll">
+
+	</div>
+</div>
+<div id="menu">
+	<div class="title_content maincolor" onclick="changeTrain(-1)">
+		前の<br>ダイヤ
+	</div>
+	<div class="title_content maincolor" onclick="changeTrain(1)">
+		次の<br>ダイヤ
+	</div>
+	<div class="title_content maincolor" onclick="page('select')">
+        事業で<br>選択
+    </div>
+    <div class="title_content maincolor" onclick="page('selectNumber')">
+        番号で<br>選択
+    </div>
+</div>
+<script> tableWrite(thisTrainNo); </script>
