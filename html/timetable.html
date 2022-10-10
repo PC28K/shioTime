@@ -23,20 +23,20 @@
 <div id="alertList" class="cursor" onclick="$('#alertList').css('display', 'none'); showAlert = 0;">
 </div>
 
-<div id="menu" class="cursor">
-	<div class="title_content maincolor" onclick="changeTrain(-1)">
-		前の<br>ダイヤ
+<div id="menu">
+	<div class="title_content maincolor cursor" onclick="page('select')">
+		仕業で<br>選択
 	</div>
-	<div class="title_content maincolor" onclick="changeTrain(1)">
-		次の<br>ダイヤ
+	<div class="title_content maincolor cursor" onclick="page('selectNumber')">
+		番号で<br>選択
 	</div>
-	<div class="title_content maincolor" onclick="page('select')">
+	<div class="title_content maincolor cursor" onclick="page('select')">
         仕業で<br>選択
     </div>
-    <div class="title_content maincolor" onclick="page('selectNumber')">
+    <div class="title_content maincolor cursor" onclick="page('selectNumber')">
         番号で<br>選択
     </div>
-    <div class="title_content maincolor" onclick="$('#alertList').css('display', 'block'); menu(1); showAlert = 1; $('#alertList').css('height', 'calc(100% - 10vw - 2.4vw)');">
+    <div class="title_content maincolor cursor" onclick="$('#alertList').css('display', 'block'); menu(1); showAlert = 1; $('#alertList').css('height', 'calc(100% - 10vw - 2.4vw)');">
         通知<br>履歴
     </div>
 </div>

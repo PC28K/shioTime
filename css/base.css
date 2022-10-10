@@ -23,6 +23,11 @@ html, body{
 }
 .cursor{
     cursor: pointer;
+    user-select: none;
+}
+
+.cursor:hover{
+    background-color: #9EC8CE;
 }
 
 #title_contain{
