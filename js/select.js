@@ -3,7 +3,7 @@ function listDB(){
     Object.keys(dbList).forEach(e => {
         output+= `<div class="time_list">`;
         output+= `
-        <div class="time_content" style="width: 100%; border-left: 0;" onclick="selectDB('${dbList[e]}')">
+        <div class="time_content cursor" style="width: 100%; border-left: 0;" onclick="selectDB('${dbList[e]}')">
             ${e}
         </div>`;
         output+= '</div>'
@@ -39,7 +39,7 @@ function listWork(){
     Object.keys(db.work).forEach(e => {
         output+= `<div class="time_list">`;
         output+= `
-        <div class="time_content" style="width: 100%; border-left: 0;" onclick="listTrain('${e}')">
+        <div class="time_content cursor" style="width: 100%; border-left: 0;" onclick="listTrain('${e}')">
             ${e}
         </div>`;
         output+= '</div>'
@@ -77,7 +77,7 @@ function listTrain(work){
             disArvTime = `${(arvTime[0]*1).toString().padStart(2, '&').replace('&', '&nbsp;')}.${arvTime[1]}<span class="sec"> ${arvTime[2]}</span>`;
         }
 
-        output+= `<div class="time_list" onclick="selectTrain('${e}', ${i})">`;
+        output+= `<div class="time_list cursor" onclick="selectTrain('${e}', ${i})">`;
         output+= `
         <div class="time_content w0">
             ${e}

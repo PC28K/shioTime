@@ -21,7 +21,9 @@ html, body{
 .weight400{
     font-weight: 400;
 }
-
+.cursor{
+    cursor: pointer;
+}
 
 #title_contain{
     width: 100vw;
