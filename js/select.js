@@ -13,6 +13,7 @@ function listDB(){
     thisWork = null;
     thisWorkLength = null;
     thisWorkNo = null;
+    thisTrainNo = null;
 }
 
 function selectDB(url){
@@ -140,6 +141,7 @@ function selectNumber(){
     thisWork = null;
     thisWorkLength = null;
     thisWorkNo = null;
+    thisTrainNo = null;
     
     thisTrainNo = inputNumber;
     page('timetable');
