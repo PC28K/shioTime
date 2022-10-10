@@ -163,13 +163,20 @@ html, body{
     border-bottom: 2px solid #FFF;
 }
 
-#alert{
-    background-color: #444;
-    width: 94vw;
+#alertList{
     position: absolute;
-    bottom: 0;
+    top: 10vw;
+    width: 96vw;
+    background-color: rgba(64, 64, 64, 0.8);
     color: #FFF;
-    font-size: 3.5vw;
     padding: 1vw 2vw 1.4vw 2vw;
+    font-size: 3.0vw;
+    line-height: 5.0vw;
     display: none;
+    overflow-y: scroll;
+}
+
+#alertList img{
+    max-width: 100%;
+    max-height: 100%;
 }

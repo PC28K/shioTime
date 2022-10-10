@@ -123,5 +123,20 @@ function tableWrite(dia){
         }
     }
 
+    if(thisTime.note){
+        if(thisTime.note.split(':')[0] == 'img'){
+            output+= `<div class="time_list" style="height: auto; font-size: 2.5vw; text-align: left; font-weight: 300; border-top: 2px solid #000; line-height: 0;">
+                <img src="${thisTime.note.split(':')[1]}" style="width: 100%;">
+            </div>`;
+        }
+        else{
+            output+= `<div class="time_list" style="height: auto; font-size: 2.5vw; text-align: left; font-weight: 300; border-top: 2px solid #000;">
+                <div style="margin: 0vw 2vw 0vw 2vw;">
+                ${thisTime.note}
+                </div>
+            </div>`;
+        }
+    }
+
     $('#time_scroll').html(output);
 }

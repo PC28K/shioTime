@@ -35,7 +35,7 @@ function selectDB(url){
 }
 
 function listWork(){
-    $('#titleHelper').text('リストから事業を選択してください。');
+    $('#titleHelper').text('リストから仕業を選択してください。');
     
     var output = '';
     Object.keys(db.work).forEach(e => {
@@ -110,15 +110,15 @@ function selectTrain(num, workNo){
 
 function changeTrain(pm){
     if(thisWork == null){
-        alert(`事業から列車を選択した場合のみ使える機能です。`);
+        alert(`仕業から列車を選択した場合のみ使える機能です。`);
         return;
     }
     else if(pm == -1 && thisWorkNo == 0){
-        alert(`事業${thisWork}では${thisTrainNo}が最初の列車です。`);
+        alert(`仕業${thisWork}では${thisTrainNo}が最初の列車です。`);
         return;
     }
     else if(pm == 1 && thisWorkNo+1 == thisWorkLength){
-        alert(`事業${thisWork}では${thisTrainNo}が最後の列車です。`);
+        alert(`仕業${thisWork}では${thisTrainNo}が最後の列車です。`);
         return;
     }
 
@@ -134,7 +134,7 @@ function selectNumber(){
         inputCars = $('#inputTrainCars').val();
 
     if(db == null){
-        alert(`「事業で選択」からDBを選択した後に試してください。`);
+        alert(`「仕業で選択」からDBを選択した後に試してください。`);
         return;
     }
     if(db.time[inputNumber] == undefined){

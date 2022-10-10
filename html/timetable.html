@@ -19,6 +19,10 @@
 
 	</div>
 </div>
+
+<div id="alertList" class="cursor" onclick="$('#alertList').css('display', 'none'); showAlert = 0;">
+</div>
+
 <div id="menu" class="cursor">
 	<div class="title_content maincolor" onclick="changeTrain(-1)">
 		前の<br>ダイヤ
@@ -27,13 +31,13 @@
 		次の<br>ダイヤ
 	</div>
 	<div class="title_content maincolor" onclick="page('select')">
-        事業で<br>選択
+        仕業で<br>選択
     </div>
     <div class="title_content maincolor" onclick="page('selectNumber')">
         番号で<br>選択
     </div>
-</div>
-
-<div id="alert" class="cursor" onclick="$('#alert').css('display', 'none');">
+    <div class="title_content maincolor" onclick="$('#alertList').css('display', 'block'); menu(1); showAlert = 1; $('#alertList').css('height', 'calc(100% - 10vw - 2.4vw)');">
+        通知<br>履歴
+    </div>
 </div>
 <script> tableWrite(thisTrainNo); </script>
