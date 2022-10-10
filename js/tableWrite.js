@@ -8,6 +8,9 @@ function tableWrite(dia){
 
     $('#trainNo').text(dia);
     $('#trainType').text(thisTime.type);
+    if(thisTrainCars == null || thisTrainCars == "")
+        $('#trainCars').text(thisTime.cars);
+    else    $('#trainCars').text(thisTrainCars);
     if(thisWork != null && thisWorkNo != null){
         $('#workNo').text(thisWork);
         $('#workInNo').text(thisWorkNo+1);

@@ -14,6 +14,7 @@ function listDB(){
     thisWorkLength = null;
     thisWorkNo = null;
     thisTrainNo = null;
+    thisTrainCars = null;
 }
 
 function selectDB(url){
@@ -128,6 +129,9 @@ function changeTrain(pm){
 
 function selectNumber(){
     var inputNumber = $('#inputTrainNo').val();
+    var inputCars = null;
+    if(inputCars != '0' && inputCars != "")
+        inputCars = $('#inputTrainCars').val();
 
     if(db == null){
         alert(`「事業で選択」からDBを選択した後に試してください。`);
@@ -144,5 +148,6 @@ function selectNumber(){
     thisTrainNo = null;
     
     thisTrainNo = inputNumber;
+    thisTrainCars = inputCars;
     page('timetable');
 }
