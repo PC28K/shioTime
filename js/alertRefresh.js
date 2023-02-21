@@ -1,6 +1,9 @@
 const alertRefreshID = setInterval(alertRefresh, alertRefreshDelay);
 function alertRefresh(){
     if(thisTrainNo){
+        if(db.alert == undefined)
+        return;
+        
         $.ajax({
             url: `${db.alert}?${Date.now()}`,
             success: function(data){

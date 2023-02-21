@@ -9,3 +9,12 @@ prevAlert[0] = null;
 prevAlert[1] = null;
 let alertList = '';
 let showAlert = 0;
+
+window.onload = function(){
+    $('#titleHelper').text(mainTitle);
+    menu();
+}
+
+window.onerror = function(msg, file, line){
+    alert(`${msg}\n${file}\n${line}`);
+}

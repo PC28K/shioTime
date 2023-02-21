@@ -12,10 +12,14 @@
 <div id="time_contain">
     <br>
 	<input type="text" id="inputTrainNo" required  autocomplete="off" placeholder="列車番号" style="height: 3.5vw; font-size: 3.8vw; width: 17vw;">
-	<input type="number" id="inputTrainCars" required  autocomplete="off" placeholder="両" style="height: 3.5vw; font-size: 3.8vw; width: 7vw;">
+	<input type="number" id="inputTrainCars" required  autocomplete="off" placeholder="両" min="0" style="height: 3.5vw; font-size: 3.8vw; width: 7vw;">
     <div class="maincolor cursor" style="width: 10vw; color: #FFF; display: inline-block;" onclick="selectNumber()">
-        ヨシ！
+        確定
     </div>
+    <!--p/>
+    <div class="maincolor cursor" style="width: 10vw; color: #FFF; display: inline-block; margin-top: 5vw;" onclick="selectNumber()">
+        リスト
+    </div-->
 </div>
 <div id="menu">
     <div class="title_content maincolor cursor" onclick="page('select')">
@@ -25,3 +29,6 @@
         番号で<br>選択
     </div>
 </div>
+<script>
+	formNumber();
+</script>

@@ -1,5 +1,5 @@
 function tableWrite(dia){
-    var thisTime = db.time[dia];
+    var thisTime = db.train[dia];
 
     if(thisTime == undefined){
         console.log('存在しない列車番号')
