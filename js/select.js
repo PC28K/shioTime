@@ -8,6 +8,18 @@ function listDB(){
         </div>`;
         output+= '</div>'
     });
+    Object.keys(db_parsed).forEach(e => {
+        output+= `<div class="time_list">`;
+        output+= `
+        <div class="time_content cursor" style="width: 100%; border-left: 0;" onclick="selectDB('${e}', true)">
+            ${e}
+        </div>`;
+        output+= '</div>'
+    });
+    output+= `<div class="time_list">
+    <div class="time_content cursor" style="width: 100%; border-left: 0;" onclick="useLocal()">
+        OuDia2 CSV
+    </div></div>`;
     $('#time_scroll').html(output);
 
     thisWork = null;
@@ -17,7 +29,122 @@ function listDB(){
     thisTrainCars = null;
 }
 
-function selectDB(url){
+function useLocal(){
+    document.getElementById('localFile').click();
+}
+
+function selectLocal(){
+    let file = document.getElementById('localFile');
+    let csv = [];
+
+    var c = 0;
+    for(var i = 0; i < file.files.length; i++){
+        let ii = i;
+        let fr = new FileReader();
+        fr.readAsText(file.files[i], "utf-8");
+
+        fr.onload = () => {
+            csv[ii] = fr.result;
+            c++;
+            if(c == file.files.length)  parseCSV();
+        }
+    }
+
+    function parseCSV(){
+        let pDB = {};
+
+        for(var i = 0; i < csv.length; i++){
+            csv[i] = csv[i].split('\r\n');
+            for(var j = 0; j < csv[i].length; j++){
+                csv[i][j] = csv[i][j].split(',');
+            }
+        }
+        console.log(csv);
+
+        for(var i = 0; i < csv.length; i++){
+            const title = csv[i][1][0];
+            if(pDB[title] == undefined){
+                pDB[title] = {
+                    group: {
+                        imported: {
+                            work: {},
+                            train: {}
+                    }}
+                };
+            }
+
+            for(var j = 2; j < csv[i][4].length; j++){
+                let num = csv[i][4][j] == '' ? `null(${j})` : csv[i][4][j];
+                if(pDB[title].group.imported.train[num] == undefined)
+                        num = csv[i][4][j];
+                else    num = csv[i][4][j] +`(${j})`;
+                pDB[title].group.imported.train[num] = {};
+
+                pDB[title].group.imported.train[num].cars = csv[i][8][j] == '' ? 0 : csv[i][8][j]*1;
+                pDB[title].group.imported.train[num].type = csv[i][6][j];
+                pDB[title].group.imported.train[num].note = csv[i][csv[i].length-2][j];
+
+                let prev;
+                let table = [];
+                for(var k = 17; k < csv[i].length-2; k++){
+                    if(csv[i][k][j] == '||' || csv[i][k][j] == '')    continue;
+
+                    if(csv[i][k][0] != prev){
+                        table.push([csv[i][k][0], 0, 0, 0, 0]);
+                        prev = csv[i][k][0];
+                    }
+
+                    let index = table.length-1;
+                    if(csv[i][k][1] == '番線' && csv[i][k][j] != ''){
+                          table[index][1] = csv[i][k][j] == '' ? 0 : csv[i][k][j];
+                    }
+                    else{
+                        let time = csv[i][k][j].trim()+'';
+
+                        if(time.includes('ﾚ')){
+                            table[index][1] = -1;
+                            continue;
+                        }
+
+                        if(time.includes('?')){
+                            table[index][1] = -1;
+                            time = time.replace('?', '');
+                        }
+
+                        time = time.padStart(4, '0') + '00';
+                        if(csv[i][k][1] == '着')    table[index][2] = time;
+                        if(csv[i][k][1] == '発')    table[index][3] = time;
+                    }
+                }
+                pDB[title].group.imported.train[num].data = table;
+
+                let work = csv[i][5][j];
+                if(work != ''){
+                    if(pDB[title].group.imported.work[work] == undefined)
+                        pDB[title].group.imported.work[work] = [];
+
+                    pDB[title].group.imported.work[work].push(num);
+                }
+            }
+
+            Object.keys(pDB[title].group.imported.work).forEach(e => {
+                pDB[title].group.imported.work[e].sort();
+            });
+        }
+
+        console.log(pDB);
+
+        db_parsed = pDB;
+        listDB();
+    }
+}
+
+function selectDB(url, parsed = false){
+    if(parsed){
+        db = db_parsed[url];
+        listGroup();
+        return;
+    }
     $.ajax({
 		url: `${url}?v=${Date.now()}`,
 		dataType: 'json',

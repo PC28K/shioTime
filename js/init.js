@@ -1,4 +1,5 @@
 let db = null;
+let db_parsed = {};
 let showMenu = 0;
 let thisWork = null;
 let thisWorkLength = null;
