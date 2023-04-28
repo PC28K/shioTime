@@ -114,7 +114,7 @@ function selectLocal(){
 
                         //time = time.padStart(4, '0') + '00';
                         time = time.padStart(6, '0');
-                        if(csv[i][k][1] == '着')    table[index][2] = time;
+                        if(csv[i][k][1] == '着' && table[index][1] != -1)    table[index][2] = time;
                         if(csv[i][k][1] == '発')    table[index][3] = time;
                     }
                 }
