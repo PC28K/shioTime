@@ -113,6 +113,7 @@ function selectLocal(){
                         }
 
                         //time = time.padStart(4, '0') + '00';
+                        if(time*1 < 30000)    time = (time*1+240000).toString();
                         time = time.padStart(6, '0');
                         if(csv[i][k][1] == '着' && table[index][1] != -1)    table[index][2] = time;
                         if(csv[i][k][1] == '発')    table[index][3] = time;
