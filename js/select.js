@@ -68,7 +68,8 @@ function selectLocal(){
                     group: {
                         imported: {
                             work: {},
-                            train: {}
+                            train: {},
+                            sort: {}
                     }}
                 };
             }
@@ -111,12 +112,17 @@ function selectLocal(){
                             time = time.replace('?', '');
                         }
 
-                        time = time.padStart(4, '0') + '00';
+                        //time = time.padStart(4, '0') + '00';
+                        time = time.padStart(6, '0');
                         if(csv[i][k][1] == '着')    table[index][2] = time;
                         if(csv[i][k][1] == '発')    table[index][3] = time;
                     }
                 }
                 pDB[title].group.imported.train[num].data = table;
+
+                if(table[0][3]*1 < 30000)
+                        pDB[title].group.imported.sort[num] = table[0][3]*1 + 240000;
+                else    pDB[title].group.imported.sort[num] = table[0][3]*1;
 
                 let work = csv[i][5][j];
                 if(work != ''){
@@ -128,8 +134,9 @@ function selectLocal(){
             }
 
             Object.keys(pDB[title].group.imported.work).forEach(e => {
-                pDB[title].group.imported.work[e].sort();
+                pDB[title].group.imported.work[e] = pDB[title].group.imported.work[e].sort((a, b) => pDB[title].group.imported.sort[a] - pDB[title].group.imported.sort[b]);
             });
+            delete pDB[title].group.imported.sort;
         }
 
         console.log(pDB);
