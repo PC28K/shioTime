@@ -100,7 +100,7 @@ function selectLocal(){
                           table[index][1] = csv[i][k][j] == '' ? 0 : csv[i][k][j];
                     }
                     else{
-                        let time = csv[i][k][j].trim()+'';
+                        let time = csv[i][k][j].toString().trim();
 
                         if(time.includes('ﾚ')){
                             table[index][1] = -1;
@@ -136,7 +136,7 @@ function selectLocal(){
             Object.keys(pDB[title].group.imported.work).forEach(e => {
                 pDB[title].group.imported.work[e] = pDB[title].group.imported.work[e].sort((a, b) => pDB[title].group.imported.sort[a] - pDB[title].group.imported.sort[b]);
             });
-            delete pDB[title].group.imported.sort;
+            //delete pDB[title].group.imported.sort;
         }
 
         console.log(pDB);
