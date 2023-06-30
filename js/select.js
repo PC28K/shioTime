@@ -121,9 +121,11 @@ function selectLocal(){
                 }
                 pDB[title].group.imported.train[num].data = table;
 
-                if(table[0][3]*1 < 30000)
-                        pDB[title].group.imported.sort[num] = table[0][3]*1 + 240000;
-                else    pDB[title].group.imported.sort[num] = table[0][3]*1;
+                if(table.length != 0){
+                    if(table[0][3]*1 < 30000)
+                            pDB[title].group.imported.sort[num] = table[0][3]*1 + 240000;
+                    else    pDB[title].group.imported.sort[num] = table[0][3]*1;
+                }
 
                 let work = csv[i][5][j];
                 if(work != ''){
