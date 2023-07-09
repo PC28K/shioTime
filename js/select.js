@@ -326,6 +326,16 @@ function selectNumber(){
     thisWorkLength = null;
     thisWorkNo = null;
     thisTrainNo = null;
+
+    Object.keys(db.work).forEach(work => {
+        var index = db.work[work].indexOf(inputNumber);
+        if(index !== -1){
+            thisWork = work;
+            thisWorkLength = db.work[work].length;
+            thisWorkNo = index;
+            return false;
+        }
+    });
     
     thisTrainNo = inputNumber;
     thisTrainCars = inputCars;
