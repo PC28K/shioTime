@@ -1,7 +1,7 @@
 //DB一覧(Array)
 const dbList = {
-    'サンプルデータ': './sample.json',
-	'新サンプル': './sample2.json'
+    'サンプルデータ': './sample/sample.json',
+	'新サンプル': './sample/sample2.json'
 }
 
 //通知更新周期

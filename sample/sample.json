@@ -1,7 +1,7 @@
 {
 	"group": {
 		"平日": {
-			"alert": "./sample_alert.txt",
+			"alert": "./sample/sample_alert.txt",
 			"work": {
 				"光明シャトル1": [
 					"F7001", "K7001", "K7002"
@@ -25,7 +25,7 @@
 				"K7001": {
 					"type": "普通",
 					"cars": 4,
-					"note": "img:./sample_note.png",
+					"note": "img:./sample/sample_note.png",
 					"data": [
 						["永登浦",				0,		0,			"053200",	0],
 						["新道林",				0,		"053400",	"053430",	0],
