@@ -87,7 +87,12 @@ function selectLocal(){
 
                 let prev;
                 let table = [];
-                for(var k = 17; k < csv[i].length-2; k++){
+                var inTT = false;
+
+                for(var k = 5; k < csv[i].length-2; k++){
+                    if(['番線', '発', '着'].includes(csv[i][k][1]))   inTT = true;
+                    if(!inTT)   continue;
+
                     if(csv[i][k][j] == '||' || csv[i][k][j] == '')    continue;
 
                     if(csv[i][k][0] != prev){
