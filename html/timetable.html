@@ -10,7 +10,8 @@
 		<span id="trainType"></span>　<span id="trainDest" class="weight400" style="font-size: 3.5vw;"></span>　行
 	</div>
 	<div class="title_content" style="width: calc(14vw - 6px); font-size: 2.5vw; line-height: 10vw; border: 0;">
-		<span id="trainCars" class="weight400" style="font-size: 6.0vw; "></span>両
+		<!--span id="trainCars" class="weight400" style="/*font-size: 6.0vw;*/"></span>両<br-->
+		<span id="clock" class="weight400" style="/*font-size: 6.0vw;*/"></span>
 	</div>
 </div>
 
@@ -41,3 +42,10 @@
     </div>
 </div>
 <script> tableWrite(thisTrainNo); </script>
+<script>
+	function clockrefresh(){
+		const time = new Date();
+		$('#clock').text(`${time.getHours().toString().padStart(2, '0')}:${time.getMinutes().toString().padStart(2, '0')}:${time.getSeconds().toString().padStart(2, '0')}`);
+	}
+	setInterval(clockrefresh, 500)
+</script>
