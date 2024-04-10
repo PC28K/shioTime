@@ -62,6 +62,7 @@ function selectLocal(){
         console.log(csv);
 
         for(var i = 0; i < csv.length; i++){
+	    var addedStations = []; //수정부분
             const title = csv[i][1][0];
             if(pDB[title] == undefined){
                 pDB[title] = {
@@ -70,7 +71,8 @@ function selectLocal(){
                             work: {},
                             train: {},
                             sort: {}
-                    }}
+                    }},
+                    station: [] //수정부분
                 };
             }
 
@@ -88,6 +90,16 @@ function selectLocal(){
                 let prev;
                 let table = [];
                 var inTT = false;
+
+		for(var k = 5; k < csv[i].length-2; k++){ //수정부분
+                    if(!['発', '着'].includes(csv[i][k][1]))    continue;
+                    
+                    var station = csv[i][k][0];
+                    if(addedStations.includes(station)) continue;
+
+                    pDB[title].station.push([station, 0, 1]);
+                    addedStations.push(station);
+                }
 
                 for(var k = 5; k < csv[i].length-2; k++){
                     if(['番線', '発', '着'].includes(csv[i][k][1]))   inTT = true;
