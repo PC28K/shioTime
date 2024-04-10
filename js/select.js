@@ -52,6 +52,7 @@ function selectLocal(){
 
     function parseCSV(){
         let pDB = {};
+	var addedStations = []; //수정부분
 
         for(var i = 0; i < csv.length; i++){
             csv[i] = csv[i].split('\r\n');
@@ -62,7 +63,6 @@ function selectLocal(){
         console.log(csv);
 
         for(var i = 0; i < csv.length; i++){
-	    var addedStations = []; //수정부분
             const title = csv[i][1][0];
             if(pDB[title] == undefined){
                 pDB[title] = {
