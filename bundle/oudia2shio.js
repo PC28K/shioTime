@@ -28,8 +28,10 @@ function parsePath(path){
 
     function parseCSV(csv){
         let pDB = {
-            group: {}
+            group: {},
+            station: []
         };
+        var addedStations = [];
 
         for(var i = 0; i < csv.length; i++){
             csv[i] = csv[i].split('\r\n');
