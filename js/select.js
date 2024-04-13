@@ -52,7 +52,7 @@ function selectLocal(){
 
     function parseCSV(){
         let pDB = {};
-	var addedStations = {}; //수정부분
+        var addedStations = {}; //수정부분
 
         for(var i = 0; i < csv.length; i++){
             csv[i] = csv[i].split('\r\n');
@@ -92,9 +92,9 @@ function selectLocal(){
                 let table = [];
                 var inTT = false;
 
-		for(var k = 5; k < csv[i].length-2; k++){ //수정부분
+                for(var k = 5; k < csv[i].length-2; k++){ //수정부분
                     if(!['発', '着'].includes(csv[i][k][1]))    continue;
-                    
+
                     var station = csv[i][k][0];
                     if(addedStations[title].includes(station)) continue;
 
@@ -206,10 +206,10 @@ function listGroup(){
 }
 
 function selectGroup(group){
-	var station = db.station;
+    var station = db.station;
 	db = db.group[group];
     db.station = station;
-	
+
     if(db.alert == undefined){
         alert('このグループは通知受信URLが定義されていないため、通知機能が動きません。');
     }
@@ -234,7 +234,7 @@ function listWork(){
     Object.keys(db.work).forEach(e => {
         output+= `<div class="time_list">`;
         output+= `
-        <div class="time_content cursor" style="width: 100%; border-left: 0;" onclick="listTrain('${e}')">
+        <div class="time_content cursor" style="width: 100%; border-left: 0;" onclick="graphTrain('${e}')">
             ${e}
         </div>`;
         output+= '</div>'
@@ -293,6 +293,117 @@ function listTrain(work){
     };
 
     $('#time_scroll').html(output);
+}
+
+function graphTrain(work){
+    if(!db.station){
+        //alert('must set a station list');
+        listTrain(work);
+        return;
+    }
+
+    $('#titleHelper').text('リストから列車を選択してください。');
+
+    thisWork = work;
+    thisWorkLength = db.work[work].length;
+
+    var stationIndex = [];
+    var needStations = [];
+    for(var i = 0; i < db.station.length; i++){
+        stationIndex.push(db.station[i][0]);
+    }
+
+    var trains = [];
+
+    for(var i = 0; i < thisWorkLength; i++){
+        var e = db.work[work][i];
+        var disDepTime;
+        var disArvTime;
+        if(db.train[e].data[0][3] != 0){
+            var depTime = [];
+            depTime[0] = db.train[e].data[0][3].substr(0, 2);
+            depTime[1] = db.train[e].data[0][3].substr(2, 2);
+
+            disDepTime = `${(depTime[0]*1).toString()}:${depTime[1]}`;
+        }
+
+        if(db.train[e].data[db.train[e].data.length-1][2] != 0){
+            var arvTime = [];
+            arvTime[0] = db.train[e].data[db.train[e].data.length-1][2].substr(0, 2);
+            arvTime[1] = db.train[e].data[db.train[e].data.length-1][2].substr(2, 2);
+
+            disArvTime = `${(arvTime[0]*1).toString()}:${arvTime[1]}`;
+        }
+
+        var from = db.train[e].data[0][0];
+        var dest = db.train[e].data[db.train[e].data.length-1][0];
+        var fromIndex = stationIndex.indexOf(from);
+        var destIndex = stationIndex.indexOf(dest);
+
+        var train = {
+            number: e,
+            type: db.train[e].type,
+            from: [fromIndex, disDepTime],
+            dest: [destIndex, disArvTime]
+        };
+        trains.push(train);
+
+        if(!needStations.includes(fromIndex))   needStations.push(fromIndex);
+        if(!needStations.includes(destIndex))   needStations.push(destIndex);
+
+    };
+    needStations.sort(function(a, b){return a-b});
+    console.log(needStations);
+    console.log(trains);
+
+    var min = needStations[0];
+    var max = needStations[needStations.length-1];
+    var height = 100 / needStations.length;
+
+    $('#time_scroll').html(`<div id="graph_stns"></div><div id="graph_trains"></div>`);
+
+    var output = '';
+    for(var i = 0; i < needStations.length; i++){
+        output+= `<div style="width: 100%; height: ${height}%;">${stationIndex[needStations[i]]}</div>`;
+    }
+    $('#graph_stns').html(output);
+
+    var output = '';
+    for(var i = 0; i < trains.length; i++){
+        if(trains[i].dest[0] < trains[i].from[0]){
+            var bottom = needStations.indexOf(trains[i].from[0])*height;
+            var top = needStations.indexOf(trains[i].dest[0])*height;
+            var timestring = [trains[i].dest[1], trains[i].from[1]];
+            var border = 'border-top: 1px solid #000;';
+        }
+        else{
+            var top = needStations.indexOf(trains[i].from[0])*height;
+            var bottom = needStations.indexOf(trains[i].dest[0])*height;
+            var timestring = [trains[i].from[1], trains[i].dest[1]];
+            var border = 'border-bottom: 1px solid #000;';
+        }
+        if(i+1 == trains.length)    border = '';
+
+        output+= `
+            <div class="graph_train">
+                <div class="graph_time" style="top: ${top+5}% ;">
+                    ${timestring[0]}
+                </div>
+                <div
+                    class="graph_selectable"
+                    style="height: ${bottom - top}%; ${border} top: ${top+5}%; width: 10vw;"
+                    onclick="selectTrain('${trains[i].number}', ${i});"
+                ">
+                    ${trains[i].number}
+                </div>
+                <div class="graph_time" style="top: ${bottom+5}%;">
+                    ${timestring[1]}
+                </div>
+            </div>
+        `;
+    }
+    $('#graph_trains').html(output);
+
 }
 
 function selectTrain(num, workNo){
