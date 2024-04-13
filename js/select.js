@@ -52,7 +52,7 @@ function selectLocal(){
 
     function parseCSV(){
         let pDB = {};
-	var addedStations = []; //수정부분
+	var addedStations = {}; //수정부분
 
         for(var i = 0; i < csv.length; i++){
             csv[i] = csv[i].split('\r\n');
@@ -75,6 +75,7 @@ function selectLocal(){
                     station: [] //수정부분
                 };
             }
+            if(addedStations[title] == undefined)   addedStations[title] = [];
 
             for(var j = 2; j < csv[i][4].length; j++){
                 let num = csv[i][4][j] == '' ? `null(${j})` : csv[i][4][j];
@@ -95,10 +96,10 @@ function selectLocal(){
                     if(!['発', '着'].includes(csv[i][k][1]))    continue;
                     
                     var station = csv[i][k][0];
-                    if(addedStations.includes(station)) continue;
+                    if(addedStations[title].includes(station)) continue;
 
                     pDB[title].station.push([station, 0, 1]);
-                    addedStations.push(station);
+                    addedStations[title].push(station);
                 }
 
                 for(var k = 5; k < csv[i].length-2; k++){
@@ -205,7 +206,10 @@ function listGroup(){
 }
 
 function selectGroup(group){
+	var station = db.station;
 	db = db.group[group];
+    db.station = station;
+	
     if(db.alert == undefined){
         alert('このグループは通知受信URLが定義されていないため、通知機能が動きません。');
     }
