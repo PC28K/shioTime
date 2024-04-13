@@ -81,7 +81,7 @@ function parsePath(){
                 pDB.group[title].train[num].cars = csv[i][8][j] == '' ? 0 : csv[i][8][j]*1;
                 pDB.group[title].train[num].type = csv[i][6][j];
                 pDB.group[title].train[num].note = csv[i][csv[i].length-2][j];
-                pDB[title].group.imported.train[num].ops = [];
+                pDB.group[title].train[num].ops = [];
 
                 let prev;
                 let table = [];
@@ -89,7 +89,7 @@ function parsePath(){
 
                 for(var k = 5; k < csv[i].length-2; k++){
                     if(['始発駅作業', '終着駅作業'].includes(csv[i][k][0])){
-                        if(!!csv[i][k][j])  pDB[title].group.imported.train[num].ops.push(csv[i][k][j]);
+                        if(!!csv[i][k][j])  pDB.group[title].train[num].ops.push(csv[i][k][j]);
                         if(csv[i][k][0] == '終着駅作業')    break;
                     }
                 }
