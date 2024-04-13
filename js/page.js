@@ -1,4 +1,10 @@
 function page(page){
+    if(page == 'graph'){
+        menu(1);
+        if(thisWork != null)    graphTrain(thisWork);
+        return;
+    }
+
     menu(1);
     $.ajax({
         url: `./html/${page}.html?${Date.now()}`,
