@@ -260,6 +260,9 @@ function listTrain(work){
             depTime[1] = db.train[e].data[0][3].substr(2, 2);
             depTime[2] = db.train[e].data[0][3].substr(4, 2);
 
+            if(!!display24cut)
+            if(depTime[0] > 24) depTime[0] = depTime[0] - 24;
+
             disDepTime = `${(depTime[0]*1).toString().padStart(2, '&').replace('&', '&nbsp;')}.${depTime[1]}<span class="sec"> ${depTime[2]}</span>`;
         }
 
@@ -268,6 +271,9 @@ function listTrain(work){
             arvTime[0] = db.train[e].data[db.train[e].data.length-1][2].substr(0, 2);
             arvTime[1] = db.train[e].data[db.train[e].data.length-1][2].substr(2, 2);
             arvTime[2] = db.train[e].data[db.train[e].data.length-1][2].substr(4, 2);
+
+            if(!!display24cut)
+            if(arvTime[0] > 24) arvTime[0] = arvTime[0] - 24;
 
             disArvTime = `${(arvTime[0]*1).toString().padStart(2, '&').replace('&', '&nbsp;')}.${arvTime[1]}<span class="sec"> ${arvTime[2]}</span>`;
         }
@@ -324,6 +330,9 @@ function graphTrain(work){
             depTime[0] = db.train[e].data[0][3].substr(0, 2);
             depTime[1] = db.train[e].data[0][3].substr(2, 2);
 
+            if(!!display24cut)
+            if(depTime[0] > 24) depTime[0] = depTime[0] - 24;
+
             disDepTime = `${(depTime[0]*1).toString()}:${depTime[1]}`;
         }
 
@@ -331,6 +340,9 @@ function graphTrain(work){
             var arvTime = [];
             arvTime[0] = db.train[e].data[db.train[e].data.length-1][2].substr(0, 2);
             arvTime[1] = db.train[e].data[db.train[e].data.length-1][2].substr(2, 2);
+
+            if(!!display24cut)
+            if(arvTime[0] > 24) arvTime[0] = arvTime[0] - 24;
 
             disArvTime = `${(arvTime[0]*1).toString()}:${arvTime[1]}`;
         }
@@ -394,7 +406,7 @@ function graphTrain(work){
                     style="height: ${bottom - top}%; ${border} top: ${top+5}%; width: 10vw;"
                     onclick="selectTrain('${trains[i].number}', ${i});"
                 ">
-                    ${trains[i].number} <span style="font-size: 0.6em">${trains[i].type}<span>
+                    ${trains[i].number} <span style="font-size: 0.6em">${trains[i].type}</span>
                 </div>
                 <div class="graph_time" style="top: ${bottom+5}%;">
                     ${timestring[1]}

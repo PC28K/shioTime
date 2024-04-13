@@ -40,6 +40,9 @@ function tableWrite(dia){
             arvTime[1] = thisTime.data[i][2].substr(2, 2);
             arvTime[2] = thisTime.data[i][2].substr(4, 2);
 
+            if(!!display24cut)
+            if(arvTime[0] > 24) arvTime[0] = arvTime[0] - 24;
+
             if(arvTime[0] != prevHour){
                 prevHour = arvTime[0];
                 disArvTime = `${(arvTime[0]*1).toString().padStart(2, '&').replace('&', '&nbsp;')}.${arvTime[1]}<span class="sec"> ${arvTime[2]}</span>`;
@@ -49,13 +52,16 @@ function tableWrite(dia){
         }
         else if(pass)   disArvTime = '|';
 
-        //発射時刻
+        //発車時刻
         var disDepTime = '';
         if(thisTime.data[i][3] != 0){
             var depTime = [];
             depTime[0] = thisTime.data[i][3].substr(0, 2);
             depTime[1] = thisTime.data[i][3].substr(2, 2);
             depTime[2] = thisTime.data[i][3].substr(4, 2);
+
+            if(!!display24cut)
+            if(depTime[0] > 24) depTime[0] = depTime[0] - 24;
 
             if(depTime[0] != prevHour){
                 prevHour = depTime[0];
