@@ -25,17 +25,20 @@
 </div>
 
 <div id="menu">
+    <div class="title_content maincolor cursor" onclick="page('graph')">
+        当運用<br>行路表
+    </div>
 	<div class="title_content maincolor cursor" onclick="changeTrain(-1)">
 		前の<br>ダイヤ
 	</div>
 	<div class="title_content maincolor cursor" onclick="changeTrain(1)">
 		次の<br>ダイヤ
 	</div>
-	<div class="title_content maincolor cursor" onclick="page('select')">
-        仕業で<br>選択
-    </div>
     <div class="title_content maincolor cursor" onclick="page('selectNumber')">
         番号で<br>選択
+    </div>
+    <div class="title_content maincolor cursor" onclick="page('select')">
+        最初に<br>戻る
     </div>
     <div class="title_content maincolor cursor" onclick="$('#alertList').css('display', 'block'); menu(1); showAlert = 1; $('#alertList').css('height', 'calc(100% - 10vw - 2.4vw)');">
         通知<br>履歴
