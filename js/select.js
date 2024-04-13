@@ -394,7 +394,7 @@ function graphTrain(work){
                     style="height: ${bottom - top}%; ${border} top: ${top+5}%; width: 10vw;"
                     onclick="selectTrain('${trains[i].number}', ${i});"
                 ">
-                    ${trains[i].number}
+                    ${trains[i].number} <span style="font-size: 0.6em">${trains[i].type}<span>
                 </div>
                 <div class="graph_time" style="top: ${bottom+5}%;">
                     ${timestring[1]}
