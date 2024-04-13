@@ -405,7 +405,7 @@ function graphTrain(work){
             var border = 'border-bottom: 1px solid #000;';
             var dir = 1;
         }
-        if(i+1 == trains.length || trains[i].ops.includes('入区'))    border = '';
+        if(i+1 == trains.length)    border = '';
 
         var opsmarkers = '';
         if(!!trains[i].ops){
@@ -419,6 +419,7 @@ function graphTrain(work){
                     if(dir)     var pos = bottom;
                     else        var pos = top;
                     opsmarkers+= `<div class="graph_ops" style="top: calc(${pos+5}% - 0.9em)">△</div>`;
+                    border = '';
                 }
                     
             }
