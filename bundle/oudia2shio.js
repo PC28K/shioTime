@@ -7,6 +7,11 @@ const rl = readline.createInterface({
     output: process.stdout,
 });
 
+var options = {
+    path: null,
+    timeOffset: 30000
+};
+
 console.clear();
 
 console.log('\x1b[42m\x1b[97m   OuDia CSV to shioTime JSON 変換スクリプト   \n\x1b[0m');
@@ -15,11 +20,25 @@ selectFile();
 function selectFile(){
     console.log('\x1b[92m   変換するOuDiaCSVのパスを入力してください。');
     console.log('\x1b[93m   - 複数ファイルは","で区分してください。(例："./nobori.csv,./kudari.csv")');
-    rl.question('\x1b[0m   > ', parsePath);
+    rl.question('\x1b[0m   > ', setTimeOffset);
 }
 
-function parsePath(path){
-    path = path.split(',');
+function setTimeOffset(path){
+    options.path = path;
+
+    console.log('\x1b[92m   日付変更基準を定数で指定してください。');
+    console.log('\x1b[93m   - デフォルト："3" (例："3"にした場合 25:59:59 → 03:00:00)');
+    rl.question('\x1b[0m   > ', setOptions);
+}
+
+function setOptions(offset){
+    if(!isNaN(offset))   options.timeOffset = offset*10000;
+
+    parsePath();
+}
+
+function parsePath(){
+    path = options.path.split(',');
     var csv = [];
     for(var i = 0; i < path.length; i++){
         var np = path[i].trim();
@@ -106,7 +125,7 @@ function parsePath(path){
                         }
 
                         //time = time.padStart(4, '0') + '00';
-                        if(time*1 < 30000)    time = (time*1+240000).toString();
+                        if(time*1 < options.timeOffset)    time = (time*1+240000).toString();
                         time = time.padStart(6, '0');
                         if(csv[i][k][1] == '着' && table[index][1] != -1)    table[index][2] = time;
                         if(csv[i][k][1] == '発')    table[index][3] = time;
@@ -115,7 +134,7 @@ function parsePath(path){
                 pDB.group[title].train[num].data = table;
 
                 if(table.length != 0){
-                    if(table[0][3]*1 < 30000)
+                    if(table[0][3]*1 < options.timeOffset)
                             pDB.group[title].sort[num] = table[0][3]*1 + 240000;
                     else    pDB.group[title].sort[num] = table[0][3]*1;
                 }
@@ -154,11 +173,12 @@ async function saveJSON(db){
     function setAlertURL(url){
         if(url != ""){
             groups.forEach(key => {
-                db.group[key].alert  = url;;
+                db.group[key].alert  = url;
             });
         }
 
         console.log('\x1b\n[92m   出力するファイルパスを入力してください。');
+        console.log('\x1b[93m   - 例："./hoteiaoi.json"');
         rl.question('\x1b[0m   > ', exportJSON);
     }
 
