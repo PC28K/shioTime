@@ -28,8 +28,10 @@ function parsePath(path){
 
     function parseCSV(csv){
         let pDB = {
-            group: {}
+            group: {},
+            station: []
         };
+        var addedStations = [];
 
         for(var i = 0; i < csv.length; i++){
             csv[i] = csv[i].split('\r\n');
@@ -64,6 +66,16 @@ function parsePath(path){
                 let prev;
                 let table = [];
                 var inTT = false;
+
+                for(var k = 5; k < csv[i].length-2; k++){ //수정부분
+                    if(!['発', '着'].includes(csv[i][k][1]))    continue;
+
+                    var station = csv[i][k][0];
+                    if(addedStations.includes(station)) continue;
+
+                    pDB.station.push([station, 0, 1]);
+                    addedStations.push(station);
+                }
 
                 for(var k = 5; k < csv[i].length-2; k++){
                     if(['番線', '発', '着'].includes(csv[i][k][1]))   inTT = true;
