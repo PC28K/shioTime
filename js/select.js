@@ -87,12 +87,20 @@ function selectLocal(){
                 pDB[title].group.imported.train[num].cars = csv[i][8][j] == '' ? 0 : csv[i][8][j]*1;
                 pDB[title].group.imported.train[num].type = csv[i][6][j];
                 pDB[title].group.imported.train[num].note = csv[i][csv[i].length-2][j];
+                pDB[title].group.imported.train[num].ops = [];
 
                 let prev;
                 let table = [];
                 var inTT = false;
 
-                for(var k = 5; k < csv[i].length-2; k++){ //수정부분
+                for(var k = 5; k < csv[i].length-2; k++){
+                    if(['始発駅作業', '終着駅作業'].includes(csv[i][k][0])){
+                        if(!!csv[i][k][j])  pDB[title].group.imported.train[num].ops.push(csv[i][k][j]);
+                        if(csv[i][k][0] == '終着駅作業')    break;
+                    }
+                }
+
+                for(var k = 5; k < csv[i].length-2; k++){
                     if(!['発', '着'].includes(csv[i][k][1]))    continue;
 
                     var station = csv[i][k][0];
@@ -356,7 +364,8 @@ function graphTrain(work){
             number: e,
             type: db.train[e].type,
             from: [fromIndex, disDepTime],
-            dest: [destIndex, disArvTime]
+            dest: [destIndex, disArvTime],
+            ops: db.train[e].ops
         };
         trains.push(train);
 
@@ -387,30 +396,51 @@ function graphTrain(work){
             var top = needStations.indexOf(trains[i].dest[0])*height;
             var timestring = [trains[i].dest[1], trains[i].from[1]];
             var border = 'border-top: 1px solid #000;';
+            var dir = 0;
         }
         else{
             var top = needStations.indexOf(trains[i].from[0])*height;
             var bottom = needStations.indexOf(trains[i].dest[0])*height;
             var timestring = [trains[i].from[1], trains[i].dest[1]];
             var border = 'border-bottom: 1px solid #000;';
+            var dir = 1;
         }
         if(i+1 == trains.length)    border = '';
+
+        var opsmarkers = '';
+        if(!!trains[i].ops){
+            for(var j = 0; j < trains[i].ops.length; j++){
+                if(trains[i].ops[j] == '出区'){
+                    if(!dir)    var pos = bottom;
+                    else        var pos = top;
+                    opsmarkers+= `<div class="graph_ops" style="top: calc(${pos+5}% - 0.9em)">○</div>`;
+                }
+                else if(trains[i].ops[j] == '入区'){
+                    if(dir)     var pos = bottom;
+                    else        var pos = top;
+                    opsmarkers+= `<div class="graph_ops" style="top: calc(${pos+5}% - 0.9em)">△</div>`;
+                    border = '';
+                }
+                    
+            }
+        }
 
         output+= `
             <div class="graph_train">
                 <div class="graph_time" style="top: ${top+5}% ;">
-                    ${timestring[0]}
+                    <span class="rotate180">${timestring[0]}</span>
                 </div>
                 <div
                     class="graph_selectable"
                     style="height: ${bottom - top}%; ${border} top: ${top+5}%; width: 10vw;"
                     onclick="selectTrain('${trains[i].number}', ${i});"
                 ">
-                    ${trains[i].number} <span style="font-size: 0.6em">${trains[i].type}</span>
+                    <span class="rotate180">${trains[i].number}</span> <span style="font-size: 0.6em; writing-mode: horizontal-tb;">${trains[i].type}</span>
                 </div>
                 <div class="graph_time" style="top: ${bottom+5}%;">
-                    ${timestring[1]}
+                    <span class="rotate180">${timestring[1]}</span>
                 </div>
+                ${opsmarkers}
             </div>
         `;
     }
